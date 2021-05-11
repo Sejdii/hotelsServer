@@ -1,24 +1,22 @@
 package com.sadzbr;
 
+import com.sadzbr.controller.DecisionArray;
 import com.sadzbr.controller.SceneController;
 import com.sadzbr.controller.ServerController;
-import com.sadzbr.service.ServerService;
+import com.sadzbr.service.Database;
 import com.sadzbr.utils.Messages;
 import com.sadzbr.utils.Resource;
-import com.sadzbr.utils.Settings;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.Date;
 import java.util.logging.Logger;
+
+import com.sadzbr.model.User;
+import com.sadzbr.model.Message;
 
 public class Server extends Application {
     @Override
@@ -33,13 +31,19 @@ public class Server extends Application {
         stage.setScene(scene);
         stage.show();
 
+        Messages.setLogger();
+
         ServerController serverController = loader.getController();
         SceneController sceneController = SceneController.getINSTANCE();
         sceneController.setServerController(serverController);
 
+        Database database = Database.getDatabase();
+
+        // when exit a program -> shutdown a server
         stage.setOnCloseRequest(e -> {
             try {
                 serverController.serverShutdown();
+                database.exit();
             } catch (IOException ioException) {
                 ioException.printStackTrace();
                 Messages.logMessage("Server shutdown error", true);

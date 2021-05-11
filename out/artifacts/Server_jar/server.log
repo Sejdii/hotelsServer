@@ -1,0 +1,4 @@
+maj 11, 2021 11:17:31 AM com.sadzbr.utils.Messages logMessage
+INFO: com.sadzbr.controller.ServerController@4b2e5aba
+maj 11, 2021 11:17:31 AM com.sadzbr.utils.Messages logMessage
+INFO: Connected to database jdbc:sqlite:hotels.sqlite

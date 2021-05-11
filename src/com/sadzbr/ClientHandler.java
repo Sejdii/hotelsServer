@@ -1,10 +1,13 @@
 package com.sadzbr;
 
+import com.sadzbr.controller.DecisionArray;
 import com.sadzbr.model.Message;
+import com.sadzbr.model.Table;
 import com.sadzbr.utils.Messages;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.List;
 import java.util.logging.Logger;
 
 public class ClientHandler implements Runnable{
@@ -16,16 +19,26 @@ public class ClientHandler implements Runnable{
 
     @Override
     public void run() {
-        Logger logger = Logger.getLogger("com.sadzbr");
         try {
-            // output from the server
-            OutputStream outputStream = clientSocket.getOutputStream();
-            // input to server from client
+            // get message from client
             InputStream inputStream = clientSocket.getInputStream();
             ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
             Message message = (Message) objectInputStream.readObject();
-            String messageLog = "Received " + message.getTable().getTableName() + " table from " + clientSocket + " operation type: " + message.getOperationType();
+            String messageLog = "Received message from " + clientSocket + " operation type: " + message.getOperationType();
             Messages.logMessage(messageLog, false);
+
+            // decide what to do next with data
+            DecisionArray decisionArray = new DecisionArray(message);
+            List<Table> response = decisionArray.makeDecision();
+
+            // send response to client
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
+            objectOutputStream.writeObject(response);
+            messageLog = "Response send to client " + clientSocket + " with " + response.size() + " rows";
+            Messages.logMessage(messageLog, false);
+
+            objectInputStream.close();
+            objectOutputStream.close();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
             String message = "Error on read the socket send from " + clientSocket + " " + e.getMessage();

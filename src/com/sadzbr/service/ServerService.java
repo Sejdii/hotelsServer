@@ -31,7 +31,7 @@ public class ServerService {
                 server = new ServerSocket(Settings.PORT);
                 working = true;
                 server.setReuseAddress(true);
-                Messages.logMessage("Server start work", false);
+                Messages.logMessage("Server starts working", false);
                 InetAddress inetAddress = InetAddress.getLocalHost();
                 Messages.logMessage("Hostname: " + inetAddress.getHostName(), false);
                 Messages.logMessage("IP: " + inetAddress, false);
