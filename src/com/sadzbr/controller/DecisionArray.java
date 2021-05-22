@@ -30,6 +30,26 @@ public class DecisionArray {
                     returnTables.add(table);
                 }
                 return returnTables;
+            case "selectAll":
+                returnTables = table.selectAll();
+                return returnTables;
+            case "update":
+                if(table.update()) {
+                    returnTables.add(table);
+                }
+                return returnTables;
+            case "insert":
+                if(table.insert() != -1) {
+                    returnTables.add(table);
+                }
+                return returnTables;
+            case "delete":
+                if(table.delete()) {
+                    returnTables.add(table);
+                }
+                return returnTables;
+            case "query":
+                //TODO stworzyć działanie dla operacji QUERY
             default:
                 break;
         }

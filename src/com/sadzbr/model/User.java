@@ -6,6 +6,7 @@ import com.sadzbr.utils.Messages;
 import javax.xml.crypto.Data;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class User extends Table {
@@ -95,7 +96,27 @@ public class User extends Table {
 
     @Override
     public List<Table> selectAll() {
-        return null;
+        Database database = Database.getDatabase();
+        ResultSet resultSet = database.executeSelectQuery("SELECT * FROM users");
+        if(resultSet == null) return null;
+        List<Table> tableList = new ArrayList<>();
+        try {
+            while(resultSet.next()) {
+                User user = new User();
+                user.setId(resultSet.getInt("id"));
+                user.setId_hotel(resultSet.getInt("id_hotel"));
+                user.setPassword(resultSet.getString("password"));
+                user.setLogin(resultSet.getString("login"));
+                user.setUser_type(resultSet.getString("user_type"));
+                tableList.add(user);
+            }
+            return tableList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Messages.logMessage("Getting data from query error " + e.getMessage(), true);
+            return null;
+        }
+
     }
 
     public boolean login() {
