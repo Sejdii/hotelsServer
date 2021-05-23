@@ -1,29 +1,23 @@
 package com.sadzbr.controller;
 
 import com.sadzbr.model.Message;
+import com.sadzbr.model.Rooms;
 import com.sadzbr.model.Table;
 import com.sadzbr.model.User;
-import com.sadzbr.service.Database;
-import com.sadzbr.utils.HotelUtils;
-import com.sadzbr.utils.Messages;
-import com.sadzbr.utils.UserUtils;
+import com.sadzbr.utils.model.HotelUtils;
+import com.sadzbr.utils.model.PackageUtils;
+import com.sadzbr.utils.model.RoomUtils;
+import com.sadzbr.utils.model.UserUtils;
+import com.sadzbr.model.Package;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Tablica decyzyjna serwera. Zarządza jaką decyzje podjąć na podstawie odebranej wiadomości
  */
 public class DecisionArray {
-    private final Message message;
 
-    public DecisionArray(Message message) {
-        this.message = message;
-    }
-
-    public List<Table> makeDecision() {
+    static public List<Table> makeDecision(Message message) {
         Table table = message.getTable();
         switch (message.getOperationType()) {
             case "getUserList":
@@ -41,6 +35,25 @@ public class DecisionArray {
                 return UserUtils.insertUserList(user);
             case "getHotelList":
                 return HotelUtils.getHotelList();
+            case "getRoomsList":
+                return RoomUtils.getRoomsList();
+            case "updateRoomsList":
+                Rooms rooms = (Rooms) table;
+                RoomUtils.updateRoomsList(rooms);
+                return null;
+            case "getPackageList":
+                return PackageUtils.getPackageList();
+            case "updatePackageList":
+                Package p = (Package) table;
+                PackageUtils.updatePackageList(p);
+                return null;
+            case "deletePackageList":
+                p = (Package) table;
+                PackageUtils.deletePackageList(p);
+                return null;
+            case "insertPackageList":
+                p = (Package) table;
+                return PackageUtils.insertPackageList(p);
             default:
                 break;
         }

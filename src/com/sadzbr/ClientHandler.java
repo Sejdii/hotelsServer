@@ -28,8 +28,7 @@ public class ClientHandler extends Thread implements Runnable {
             Messages.logMessage(messageLog, false);
 
             // decide what to do next with data
-            DecisionArray decisionArray = new DecisionArray(message);
-            List<Table> response = decisionArray.makeDecision();
+            List<Table> response = DecisionArray.makeDecision(message);
 
             // send response to client
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
