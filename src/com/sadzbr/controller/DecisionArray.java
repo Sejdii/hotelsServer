@@ -3,7 +3,13 @@ package com.sadzbr.controller;
 import com.sadzbr.model.Message;
 import com.sadzbr.model.Table;
 import com.sadzbr.model.User;
+import com.sadzbr.service.Database;
+import com.sadzbr.utils.HotelUtils;
+import com.sadzbr.utils.Messages;
+import com.sadzbr.utils.UserUtils;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,37 +25,22 @@ public class DecisionArray {
 
     public List<Table> makeDecision() {
         Table table = message.getTable();
-        List<Table> returnTables = new ArrayList<>();
         switch (message.getOperationType()) {
-            case "select":
-                table.select();
-                returnTables.add(table);
-                return returnTables;
-            case "login":
-                if(((User) table).login()) {
-                    returnTables.add(table);
-                }
-                return returnTables;
-            case "selectAll":
-                returnTables = table.selectAll();
-                return returnTables;
-            case "update":
-                if(table.update()) {
-                    returnTables.add(table);
-                }
-                return returnTables;
-            case "insert":
-                if(table.insert() != -1) {
-                    returnTables.add(table);
-                }
-                return returnTables;
-            case "delete":
-                if(table.delete()) {
-                    returnTables.add(table);
-                }
-                return returnTables;
-            case "query":
-                //TODO stworzyć działanie dla operacji QUERY
+            case "getUserList":
+                return UserUtils.getUserList();
+            case "updateUserList":
+                User user = (User) table;
+                UserUtils.updateUserList(user);
+                return null;
+            case "deleteUserList":
+                user = (User) table;
+                UserUtils.deleteUserList(user);
+                return null;
+            case "insertUserList":
+                user = (User) table;
+                return UserUtils.insertUserList(user);
+            case "getHotelList":
+                return HotelUtils.getHotelList();
             default:
                 break;
         }

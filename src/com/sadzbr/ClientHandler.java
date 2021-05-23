@@ -8,9 +8,9 @@ import com.sadzbr.utils.Messages;
 import java.io.*;
 import java.net.Socket;
 import java.util.List;
-import java.util.logging.Logger;
+import java.util.Set;
 
-public class ClientHandler implements Runnable{
+public class ClientHandler extends Thread implements Runnable {
     private final Socket clientSocket;
 
     public ClientHandler(Socket socket) {
