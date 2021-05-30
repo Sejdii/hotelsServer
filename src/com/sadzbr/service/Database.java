@@ -5,9 +5,21 @@ import com.sadzbr.utils.Settings;
 
 import java.sql.*;
 
+/**
+ * Service bazy danych. Umożliwia komunikację z bazą danych. Ustawiania tego połączenia znajdują się w klasie com.sadzbr.utils.Settings
+ */
 public class Database {
+    /**
+     * Instancja bazy danych
+     */
     private static final Database database = new Database();
+    /**
+     * Połączenie z bazą
+     */
     private Connection connection;
+    /**
+     * Zapytanie SQL do bazy danych
+     */
     private Statement statement;
 
     private Database() {
@@ -26,10 +38,19 @@ public class Database {
         }
     }
 
+    /**
+     * Pobiera bazę danych
+     * @return baza danych
+     */
     public static Database getDatabase() {
         return database;
     }
 
+    /**
+     * Wykonuje zapytanie w bazie danych
+     * @param query Zapytanie
+     * @return Zwraca true w przypadku powodzenia, false w przeciwnym razie.
+     */
     public boolean executeQuery(String query) {
         try {
             statement.execute(query);
@@ -41,6 +62,11 @@ public class Database {
         return true;
     }
 
+    /**
+     * Wykonuje zapytanie Select bazie danych a następnie zwraca wynik.
+     * @param query Zapytanie
+     * @return Wynik zapytania.
+     */
     public ResultSet executeSelectQuery(String query) {
         ResultSet ret;
         try {
@@ -53,6 +79,9 @@ public class Database {
         return ret;
     }
 
+    /**
+     * Zamyka połączenie z bazą danych.
+     */
     public void exit() {
         try {
             connection.close();
@@ -61,6 +90,10 @@ public class Database {
         }
     }
 
+    /**
+     * Inicjuje bazę danych jeżeli nie została ona jeszcze stworzona. Tworzy strukturę tabel w bazie.
+     * @return Zwraca true w przypadku powodzenia, false w przeciwnym razie.
+     */
     public boolean initialDatabase() {
         String users = "CREATE TABLE IF NOT EXISTS users (" +
                 "id integer primary key autoincrement," +

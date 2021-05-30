@@ -2,7 +2,6 @@ package com.sadzbr.utils.model;
 
 import com.sadzbr.model.Rooms;
 import com.sadzbr.model.Table;
-import com.sadzbr.model.User;
 import com.sadzbr.service.Database;
 import com.sadzbr.utils.Messages;
 
@@ -11,7 +10,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Metody dla tabeli room
+ */
 public class RoomUtils {
+    /**
+     * Pobiera listę pokoi
+     * @return Zwraca listę pokoi
+     */
     static public List<Table> getRoomsList() {
         Database database = Database.getDatabase();
         ResultSet resultSet = database.executeSelectQuery("select * from rooms");
@@ -36,6 +42,10 @@ public class RoomUtils {
         }
     }
 
+    /**
+     * Wykonuje polecenie update na tabeli
+     * @param r Pokój
+     */
     static public void updateRoomsList(Rooms r) {
         Database database = Database.getDatabase();
         String query = String.format("update rooms set id_hotel = %d, nr_of_places = %d, price = %s, room_nr = %d where id = %d",

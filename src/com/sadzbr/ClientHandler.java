@@ -5,18 +5,33 @@ import com.sadzbr.model.Message;
 import com.sadzbr.model.Table;
 import com.sadzbr.utils.Messages;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.List;
-import java.util.Set;
 
+/**
+ * Handler dla połączenia z klientem
+ */
 public class ClientHandler extends Thread implements Runnable {
+    /**
+     * Socket klienta
+     */
     private final Socket clientSocket;
 
+    /**
+     * Konstruktor
+     * @param socket Socket klienta
+     */
     public ClientHandler(Socket socket) {
         this.clientSocket = socket;
     }
 
+    /**
+     * Uruchamia wątek. Pobiera wiadomość od użytkownika, dokonuje decyzji co z nią zrobić a następnie odsyła odpowiedź.
+     */
     @Override
     public void run() {
         try {

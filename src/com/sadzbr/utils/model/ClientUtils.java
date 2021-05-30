@@ -1,8 +1,6 @@
 package com.sadzbr.utils.model;
 
 import com.sadzbr.model.Client;
-import com.sadzbr.model.Package;
-import com.sadzbr.model.Reservations;
 import com.sadzbr.model.Table;
 import com.sadzbr.service.Database;
 import com.sadzbr.utils.Messages;
@@ -12,7 +10,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Metody dla tabeli client
+ */
 public class ClientUtils {
+    /**
+     * Zwraca listę klientów
+     * @return Lista klientów
+     */
     static public List<Table> getClientList() {
         Database database = Database.getDatabase();
         ResultSet resultSet = database.executeSelectQuery("select * from client");
@@ -40,6 +45,11 @@ public class ClientUtils {
         }
     }
 
+    /**
+     * Wykonuje polecenie insert do tabeli klientów
+     * @param x Klient
+     * @return Zwraca listę klientów
+     */
     static public List<Table> insertClientList(Client x) {
         List<Table> tables = new ArrayList<>();
 

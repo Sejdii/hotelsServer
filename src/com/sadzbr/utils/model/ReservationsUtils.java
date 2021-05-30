@@ -13,7 +13,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Metody dla tabeli reservations
+ */
 public class ReservationsUtils {
+    /**
+     * Pobiera listę rezerwacji
+     * @return Zwraca listę rezerwacji
+     */
     static public List<Table> getReservationsList() {
         Database database = Database.getDatabase();
         ResultSet resultSet = database.executeSelectQuery("select * from reservations");
@@ -40,6 +47,11 @@ public class ReservationsUtils {
         }
     }
 
+    /**
+     * Wykonuje polecenie insert na tabeli
+     * @param x Rezerwacja
+     * @return Zwraca listę rezerwacji z jednym elementem którzy przechowuje w swoim polu ID id nowo utworzonego wiersza.
+     */
     static public List<Table> insertReservationList(Reservations x) {
         List<Table> tables = new ArrayList<>();
 
@@ -56,6 +68,11 @@ public class ReservationsUtils {
         return tables;
     }
 
+    /**
+     * Pobiera listę dostępnym pokoi
+     * @param x Rezerwacja
+     * @return Zwraca listę dostępnych pokoi
+     */
     static public List<Table> getAvailableRoomsList(Reservations x) {
         Database database = Database.getDatabase();
         String dateStart = new SimpleDateFormat("yyyy-MM-dd").format(x.getDate_start());
@@ -63,7 +80,7 @@ public class ReservationsUtils {
         String query = String.format("select * from rooms " +
                 "where id NOT IN (select id_room from reservations where '%s' between date_start and date_end or date_start between '%s' and '%s') " +
                 "and id_hotel=%d and nr_of_places=%d;",
-                x.getDate_start(), dateStart, dateEnd,
+                dateStart, dateStart, dateEnd,
                 x.getId_room(), x.getId_package());
 
         // for socket message: id_rooms handle value of id_hotel and id_package handle value of nr_of_places

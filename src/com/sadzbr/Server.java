@@ -1,12 +1,10 @@
 package com.sadzbr;
 
-import com.sadzbr.controller.DecisionArray;
 import com.sadzbr.controller.SceneController;
 import com.sadzbr.controller.ServerController;
 import com.sadzbr.service.Database;
 import com.sadzbr.utils.Messages;
 import com.sadzbr.utils.Resource;
-import com.sadzbr.utils.model.ReservationsUtils;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,12 +12,16 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.logging.Logger;
 
-import com.sadzbr.model.User;
-import com.sadzbr.model.Message;
-
+/**
+ * Klasa main serwera.
+ */
 public class Server extends Application {
+    /**
+     * Uruchamia aplikacje serwera wraz z interfejsem graficznym
+     * @param stage Scena
+     * @throws Exception Wyjątek
+     */
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(Resource.view("server")));
@@ -52,6 +54,10 @@ public class Server extends Application {
         });
     }
 
+    /**
+     * Metoda main
+     * @param args Argumenty wywołania
+     */
     public static void main(String[] args) {
         launch(args);
     }

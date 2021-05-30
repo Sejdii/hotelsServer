@@ -11,16 +11,33 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
-import java.util.logging.Logger;
 
+
+/**
+ * Kontroler serwera
+ */
 public class ServerController implements Initializable {
+    /**
+     * Przycisk wyłączenia serwera
+     */
     @FXML private Button switchOfButton;
+    /**
+     * Pole tekstowe na logi serwera
+     */
     @FXML private TextArea logArea;
+    /**
+     * Określa czy serwer działa
+     */
     private boolean isRunning = false;
 
+    /**
+     * Dodaje wiadomość do logArea
+     * @param message Wiadomość
+     */
     public void addMessage(String message) {
         logArea.setText(logArea.getText() + "\n [" + new Date() + "] " + message);
     }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -28,10 +45,19 @@ public class ServerController implements Initializable {
         logArea.setText("");
     }
 
+    /**
+     * Pobiera informacje czy serwera działa
+     * @return True jeżeli działa, false w przeciwnym wypadku
+     */
     public boolean isRunning() {
         return isRunning;
     }
 
+    /**
+     * Handler dla przycisku wyłączenia serwea
+     * @param actionEvent Event
+     * @throws IOException Wyjątek
+     */
     public void handleSwitchOffButton(ActionEvent actionEvent) throws IOException {
         if(!isRunning) {
             isRunning = true;
@@ -45,6 +71,10 @@ public class ServerController implements Initializable {
         }
     }
 
+    /**
+     * Wyłącza serwer
+     * @throws IOException Wyjątek
+     */
     public void serverShutdown() throws IOException {
         ServerService serverService = ServerService.getINSTANCE();
         serverService.stop();

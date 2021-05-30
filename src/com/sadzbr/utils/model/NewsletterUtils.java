@@ -7,7 +7,15 @@ import com.sadzbr.service.Database;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Metody dla tabeli newsletter
+ */
 public class NewsletterUtils {
+    /**
+     * Wykonuje polecenie insert
+     * @param x Newsletter
+     * @return Zwraca listę newsletterów z jednym elementem którzy przechowuje w swoim polu ID id nowo utworzonego wiersza.
+     */
     static public List<Table> insertNewsletterList(Newsletter x) {
         List<Table> tables = new ArrayList<>();
 

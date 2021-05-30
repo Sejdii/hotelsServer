@@ -7,7 +7,15 @@ import com.sadzbr.utils.Messages;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Uniwersalne metody dla wszystkich tabel
+ */
 public class TableUtils {
+    /**
+     * Dla danego nowo utworzonego wiersza pobiera i dodaje jego id
+     * @param t Tabela
+     * @return Zwraca tabelę z ustawionym id
+     */
     static public Table setInsertedId(Table t) {
         Database database = Database.getDatabase();
         ResultSet resultSet = database.executeSelectQuery("select last_insert_rowid() as id");

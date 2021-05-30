@@ -2,7 +2,6 @@ package com.sadzbr.utils.model;
 
 import com.sadzbr.model.Hotel;
 import com.sadzbr.model.Table;
-import com.sadzbr.model.User;
 import com.sadzbr.service.Database;
 import com.sadzbr.utils.Messages;
 
@@ -11,7 +10,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Metody dla tabeli hotel
+ */
 public class HotelUtils {
+    /**
+     * Pobiera listę hotel
+     * @return Zwraca listę hoteli
+     */
     static public List<Table> getHotelList() {
         Database database = Database.getDatabase();
         ResultSet resultSet = database.executeSelectQuery("select * from hotel");
