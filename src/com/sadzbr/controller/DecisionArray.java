@@ -1,14 +1,8 @@
 package com.sadzbr.controller;
 
-import com.sadzbr.model.Message;
-import com.sadzbr.model.Rooms;
-import com.sadzbr.model.Table;
-import com.sadzbr.model.User;
-import com.sadzbr.utils.model.HotelUtils;
-import com.sadzbr.utils.model.PackageUtils;
-import com.sadzbr.utils.model.RoomUtils;
-import com.sadzbr.utils.model.UserUtils;
+import com.sadzbr.model.*;
 import com.sadzbr.model.Package;
+import com.sadzbr.utils.model.*;
 
 import java.util.List;
 
@@ -17,6 +11,11 @@ import java.util.List;
  */
 public class DecisionArray {
 
+    /**
+     * Metoda, która podejmuje co zrobić dalej, na podstawie wiadomości otrzymanej od klienta.
+     * @param message Wiadomość
+     * @return Zwraca listę tabel.
+     */
     static public List<Table> makeDecision(Message message) {
         Table table = message.getTable();
         switch (message.getOperationType()) {
@@ -54,6 +53,25 @@ public class DecisionArray {
             case "insertPackageList":
                 p = (Package) table;
                 return PackageUtils.insertPackageList(p);
+            case "getReservationsList":
+                return ReservationsUtils.getReservationsList();
+            case "insertReservationsList":
+                Reservations r = (Reservations) table;
+                return ReservationsUtils.insertReservationList(r);
+            case "getClientList":
+                return ClientUtils.getClientList();
+            case "insertClientList":
+                Client c = (Client) table;
+                return ClientUtils.insertClientList(c);
+            case "insertPaymentsList":
+                Payments payments = (Payments) table;
+                return PaymentsUtils.insertPaymentsList(payments);
+            case "insertNewsletterList":
+                Newsletter newsletter = (Newsletter) table;
+                return NewsletterUtils.insertNewsletterList(newsletter);
+            case "getAvailableRoomsList":
+                r = (Reservations) table;
+                return ReservationsUtils.getAvailableRoomsList(r);
             default:
                 break;
         }

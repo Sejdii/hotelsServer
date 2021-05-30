@@ -93,7 +93,9 @@ public class Database {
                 "id_room integer not null," +
                 "id_package integer not null," +
                 "id_payment integer not null," +
-                "id_client integer not null)";
+                "id_client integer not null," +
+                "date_start date not null," +
+                "date_end date not null)";
         String client = "CREATE TABLE IF NOT EXISTS client (" +
                 "id integer primary key autoincrement," +
                 "name varchar(100) not null," +
